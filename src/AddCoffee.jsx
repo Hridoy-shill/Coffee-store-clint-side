@@ -3,7 +3,7 @@ import App from "./App";
 const AddCoffee = () => {
 
     const handleAddData = event => {
-        
+
         event.preventDefault()
         const form = event.target
         const name = form.name.value
@@ -14,7 +14,22 @@ const AddCoffee = () => {
         const details = form.details.value
         const photo = form.photo.value
 
-        console.log(name, chef, supplier, taste, category, details, photo);
+        const newCoffee = { name, chef, supplier, taste, category, details, photo };
+
+        fetch('http://localhost:5000/coffee', {
+
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            
+            body: JSON.stringify(newCoffee)
+
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
     }
     return (
         <div>
